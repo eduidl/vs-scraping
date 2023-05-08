@@ -1,8 +1,1 @@
-画像のスクレイピングをしづらいようにしてみるテスト  
-画像を分割しただけだけど、地味に嫌だと思う。  
-HTML 上ランダムソートしたので、PowerPoint のエフェクトみたいになってこれはこれで面白くなった。  
-スクショとられたらおしまいなんだけど。
-
-## 動作
-
-https://eduidl.github.io/vs-scraping/index2
+https://eduidl.github.io/vs-scraping/tile-move
