@@ -9,21 +9,9 @@
       crossorigin="anonymous"
     />
     <style>
-      img {
-        width: 200px;
-        height: 200px;
-      }
-
-      .background {
-        width: 200px;
-        height: 200px;
-        background-image: url("./mountain.jpg");
-        background-size: cover;
-      }
-
       #canvas {
-        width: 200px;
-        height: 200px;
+        width: 1024px;
+        height: 1024px;
       }
     </style>
   </head>
@@ -45,7 +33,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" href="#">通常</a>
+              <a class="nav-link" href="./">通常</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="./tile">タイル</a>
@@ -54,38 +42,14 @@
               <a class="nav-link" href="./tile-move">動くタイル</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./stripes">縞</a>
+              <a class="nav-link active" href="#">縞</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>説明</th>
-          <th>画像</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>ノーガード</td>
-          <td><img src="./mountain.jpg" /></td>
-        </tr>
-        <tr>
-          <td>img 右クリック禁止</td>
-          <td>
-            <img oncontextmenu="return false;" src="./mountain.jpg" />
-          </td>
-        </tr>
-        <tr>
-          <td>background-image</td>
-          <td>
-            <div class="background"></div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+
+    <canvas id="canvas" width="1024" height="1024"></canvas>
 
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -97,5 +61,35 @@
       integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      let loaded = false;
+      const img = new Image();
+      img.src = "mountain.jpg";
+      img.onload = () => {
+        loaded = true;
+      };
+
+      let count = 0;
+      const countUp = () => {
+        if (!loaded) return;
+
+        ctx.drawImage(img, 0, 0);
+
+        const block = 8;
+        const repeat = 16;
+        ctx.globalAlpha = 0.3;
+        ctx.fillStyle = "gray";
+        for (let h = count; h < 1024 / block; h += repeat) {
+          ctx.fillRect(0, h * block, 1024, block);
+        }
+
+        count = (count + 1) % repeat;
+      };
+      setInterval(countUp, 20);
+    </script>
   </body>
 </html>
